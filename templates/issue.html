@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ issue['title'] }}</h2>
+<p>{{ issue['description'] }}</p>
+
+<h3>Reactions:</h3>
+<ul>
+    {% for reaction in reactions %}
+    <li>{{ reaction['reaction_type'] }}: {{ reaction['count'] }}</li>
+    {% endfor %}
+</ul>
+
+<form action="{{ url_for('react', issue_id=issue['id']) }}" method="post">
+    <select name="reaction_type">
+        <option value="I've also had this issue">I've also had this issue</option>
+        <option value="Surprising issue">Surprising issue</option>
+    </select>
+    <button type="submit">React</button>
+</form>
+
+<h3>Comments:</h3>
+<ul>
+    {% for comment in comments %}
+    <li>{{ comment['text'] }}</li>
+    {% endfor %}
+</ul>
+
+<form action="{{ url_for('add_comment', issue_id=issue['id']) }}" method="post">
+    <textarea name="text" placeholder="Add a comment" required></textarea>
+    <button type="submit">Comment</button>
+</form>
+{% endblock %}

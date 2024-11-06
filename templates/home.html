@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>All Issues</h2>
+<ul>
+    {% for issue in issues %}
+    <li><a href="{{ url_for('issue', issue_id=issue['id']) }}">{{ issue['title'] }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
